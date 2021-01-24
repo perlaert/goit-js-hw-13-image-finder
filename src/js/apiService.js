@@ -1,4 +1,4 @@
-import notificationError from './notifications';
+import notificationError from './notification';
 
 const apiKey = '19974977-7de7da89e9a7910ce59988326';
 
