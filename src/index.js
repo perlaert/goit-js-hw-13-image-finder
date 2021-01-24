@@ -3,18 +3,26 @@ import refs from './js/refs';
 import apiService from './js/apiService';
 import updateImagesMarkup from './js/update-images-makrup';
 
-// {
-//   /* <link
-//   href="https://fonts.googleapis.com/icon?family=Material+Icons"
-//   rel="stylesheet"
-// ></link>; */
-// }
-
-// let searchQuery = '';
-// let page = 1;
-
 refs.searchForm.addEventListener('submit', searchSubmitHandler);
 refs.loadMoreBtn.addEventListener('click', fetchImages);
+
+const loadMoreBtn = {
+  enable() {
+    refs.loadMoreBtn.disabled = false;
+    refs.loadMoreLabel.textContent = 'Load more';
+    refs.loadMoreSpinner.classList.add('is-hidden');
+  },
+
+  disable() {
+    refs.loadMoreBtn.disabled = true;
+    refs.loadMoreLabel.textContent = 'Loading...';
+    refs.loadMoreSpinner.classList.remove('is-hidden');
+  },
+
+  show() {
+    refs.loadMoreBtn.classList.remove('is-hidden');
+  },
+};
 
 function searchSubmitHandler(event) {
   event.preventDefault();
@@ -29,8 +37,17 @@ function searchSubmitHandler(event) {
 }
 
 function fetchImages() {
+  loadMoreBtn.disable();
   apiService.fetchImages().then(hits => {
     updateImagesMarkup(hits);
+    loadMoreBtn.enable();
+    loadMoreBtn.show();
+    if (apiService.page > 2) {
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: 'smooth',
+      });
+    }
   });
 }
 

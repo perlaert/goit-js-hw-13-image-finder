@@ -3,7 +3,7 @@ import refs from './refs.js';
 
 function updateImagesMarkup(hits) {
   const markup = cardImageTpl(hits);
-  refs.galleryRef.insertAdjacentHTML('afterbegin', markup);
+  refs.galleryRef.insertAdjacentHTML('beforeend', markup);
 }
 
 export default updateImagesMarkup;

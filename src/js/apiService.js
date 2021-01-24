@@ -1,5 +1,5 @@
-//api 19974977-7de7da89e9a7910ce59988326
-//https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=что_искать&page=номер_страницы&per_page=12&key=твой_ключ
+import notificationError from './notifications';
+
 const apiKey = '19974977-7de7da89e9a7910ce59988326';
 
 export default {
@@ -12,17 +12,21 @@ export default {
     return fetch(url)
       .then(response => response.json())
       .then(({ hits }) => {
+        if (hits.length === 0) {
+          return notificationError(
+            'Oops... No results were found for your request! Try again',
+          );
+        }
+
         this.incrementPage();
+
         return hits;
+      })
+      .catch(error => {
+        if (error === 404) {
+          return notificationError('Something went wrong. Try again.');
+        }
       });
-  },
-
-  get query() {
-    return this.searchQuery;
-  },
-
-  set query(value) {
-    this.searchQuery = value;
   },
 
   resetPage() {
@@ -31,5 +35,13 @@ export default {
 
   incrementPage() {
     this.page += 1;
+  },
+
+  get query() {
+    return this.searchQuery;
+  },
+
+  set query(value) {
+    this.searchQuery = value;
   },
 };
