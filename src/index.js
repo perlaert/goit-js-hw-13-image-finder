@@ -2,7 +2,7 @@ import './styles.css';
 import refs from './js/refs';
 import apiService from './js/apiService';
 import updateImagesMarkup from './js/update-images-makrup';
-
+import './js/modal';
 refs.searchForm.addEventListener('submit', searchSubmitHandler);
 refs.loadMoreBtn.addEventListener('click', fetchImages);
 
