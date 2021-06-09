@@ -42,8 +42,6 @@ function closeModal() {
 }
 
 function onPressEscape(event) {
-  console.log(event.code);
-
   if (event.code === 'Escape') {
     closeModal();
   }
