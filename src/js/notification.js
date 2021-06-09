@@ -8,10 +8,20 @@ PNotify.defaults.icons = 'material';
 
 // PNotify.notice('Too many matches found. Please enter a more specific query!');
 
-export default function notificationError(error) {
-  PNotify.error({
-    text: error,
-    delay: 3000,
+function info(text) {
+  PNotify.info({
+    text,
+    delay: 1500,
     animateSpeed: 'slow',
   });
 }
+
+function error(error) {
+  PNotify.error({
+    text: error,
+    delay: 1500,
+    animateSpeed: 'slow',
+  });
+}
+
+export default { info, error };

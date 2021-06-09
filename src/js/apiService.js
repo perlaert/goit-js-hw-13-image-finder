@@ -1,4 +1,4 @@
-import notificationError from './notification';
+import notification from './notification';
 
 const apiKey = '19974977-7de7da89e9a7910ce59988326';
 
@@ -12,19 +12,13 @@ export default {
     return fetch(url)
       .then(response => response.json())
       .then(({ hits }) => {
-        if (hits.length === 0) {
-          return notificationError(
-            'Oops... No results were found for your request! Try again',
-          );
-        }
-
         this.incrementPage();
 
         return hits;
       })
       .catch(error => {
         if (error === 404) {
-          return notificationError('Something went wrong. Try again.');
+          return notification.error('Something went wrong. Try again.');
         }
       });
   },
